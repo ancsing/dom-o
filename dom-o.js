@@ -47,14 +47,14 @@
     
     function Element(document, nodeName, attributes, childNodes) {
         var child,
+            el = document.createElement(nodeName),
             i;
-        this.el = document.createElement(nodeName);
 
         for (i in attributes) {
             if (has.call(attributes, i)) {
                 child = document.createAttribute(hyphenify(i));
                 child.nodeValue = attributes[i];
-                this.el.setAttributeNode(child);
+                el.setAttributeNode(child);
             }
         }
 
@@ -64,19 +64,11 @@
             if (!child || !child.nodeType) {
                 child = document.createTextNode(child);
             }
-            this.el.appendChild(child);
+            el.appendChild(child);
         }
-
-        return this;
+        return el;
     }
 
-    Element.prototype.stringify = function() {
-        return this.el.outerHTML;
-    };
-
-    Element.prototype.get = function() {
-        return this.el;
-    };
 
     while ((i -= 1))  {
         registerNodeName(tags[i]);
@@ -114,6 +106,10 @@
         }
         css += "}\n";
         return css;
+    };
+
+    root.stringify = function(element) {
+        return element.outerHTML;
     };
 
     return root;
