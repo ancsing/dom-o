@@ -1,7 +1,11 @@
+/*global console, $, EDIA, arbor, window, document*/
+
 (function ($) {
     "use strict";
-    $.fn.dom_o = function () {
-    var root  = this.dom_o,
+
+    $.extend({
+        dom_o : (function () {
+    var root  = {},
         slice = Array.prototype.slice,
         has   = Object.prototype.hasOwnProperty,
         lCaseTags = true,
@@ -33,7 +37,6 @@
                 childNodes.unshift(attributes);
                 attributes = null;
             }
-
             return new Element(document, nName, attributes, childNodes);
         };
     }
@@ -104,5 +107,8 @@
         css += "}\n";
         return css;
     };
-};
+
+    return root;
+    }())
+    });
 }(jQuery));
