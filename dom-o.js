@@ -60,11 +60,12 @@
 
         for (i = 0; i < childNodes.length; i += 1) {
             child = childNodes[i];
-
-            if (!child || !child.nodeType) {
-                child = document.createTextNode(child);
+            if (typeof child !== "undefined") {
+                if (!child || !child.nodeType) {
+                    child = document.createTextNode(child);
+                }
+                el.appendChild(child);
             }
-            el.appendChild(child);
         }
         return el;
     }
